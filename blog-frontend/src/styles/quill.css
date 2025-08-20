@@ -1,0 +1,57 @@
+/* Custom Quill Editor Styles - Minimal implementation */
+.ql-toolbar {
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  padding: 8px;
+}
+
+.ql-container {
+  border: 1px solid #ccc;
+  border-top: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 13px;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.ql-editor {
+  box-sizing: border-box;
+  line-height: 1.42;
+  height: 100%;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 15px;
+  tab-size: 4;
+  -moz-tab-size: 4;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 200px;
+}
+
+.ql-editor p {
+  margin: 0;
+  padding: 0;
+}
+
+.ql-toolbar button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  float: left;
+  height: 24px;
+  padding: 3px 5px;
+  width: 28px;
+}
+
+.ql-toolbar button:hover {
+  background-color: #f0f0f0;
+}
+
+.ql-toolbar .ql-active {
+  background-color: #e0e0e0;
+}
