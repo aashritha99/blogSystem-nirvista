@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 import store from './store';
+import { AuthProvider } from './context/AuthContext';
 import Layout from './components/layout/Layout';
 import ProtectedRoute from './components/common/ProtectedRoute';
 
@@ -21,89 +22,87 @@ import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
-    <Provider store={store}>
-      <Router>
-        <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-          <Layout>
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<HomePage />} />
-              <Route path="/blog/:id" element={<BlogDetailsPage />} />
-              <Route path="/categories" element={<CategoriesPage />} />
-              <Route path="/category/:slug" element={<CategoryPage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/tag/:slug" element={<TagPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-              
-              {/* Protected Routes */}
-              <Route 
-                path="/profile" 
-                element={
-                  <ProtectedRoute>
-                    <ProfilePage />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* Admin/Editor Routes */}
-              <Route 
-                path="/dashboard" 
-                element={
-                  <ProtectedRoute requiredRole="editor">
-                    <DashboardPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/create-blog" 
-                element={
-                  <ProtectedRoute requiredRole="editor">
-                    <CreateBlogPage />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route 
-                path="/edit-blog/:id" 
-                element={
-                  <ProtectedRoute requiredRole="editor">
-                    <CreateBlogPage />
-                  </ProtectedRoute>
-                } 
-              />
-              
-              {/* 404 Route */}
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
-          
-          {/* Toast Notifications */}
-          <Toaster
-            position="top-right"
-            toastOptions={{
-              duration: 4000,
-              style: {
-                background: 'var(--toast-bg)',
-                color: 'var(--toast-color)',
-              },
-              success: {
-                iconTheme: {
-                  primary: '#10b981',
-                  secondary: '#ffffff',
+    <AuthProvider>
+      <Provider store={store}>
+        <Router>
+          <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
+            <Layout>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<HomePage />} />
+                <Route path="/blog/:id" element={<BlogDetailsPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/category/:slug" element={<CategoryPage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/tag/:slug" element={<TagPage />} />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/register" element={<RegisterPage />} />
+                {/* Protected Routes */}
+                <Route 
+                  path="/profile" 
+                  element={
+                    <ProtectedRoute>
+                      <ProfilePage />
+                    </ProtectedRoute>
+                  } 
+                />
+                {/* Admin/Editor Routes */}
+                <Route 
+                  path="/dashboard" 
+                  element={
+                    <ProtectedRoute requiredRole="editor">
+                      <DashboardPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/create-blog" 
+                  element={
+                    <ProtectedRoute requiredRole="editor">
+                      <CreateBlogPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                <Route 
+                  path="/edit-blog/:id" 
+                  element={
+                    <ProtectedRoute requiredRole="editor">
+                      <CreateBlogPage />
+                    </ProtectedRoute>
+                  } 
+                />
+                {/* 404 Route */}
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Layout>
+            {/* Toast Notifications */}
+            <Toaster
+              position="top-right"
+              toastOptions={{
+                duration: 4000,
+                style: {
+                  background: 'var(--toast-bg)',
+                  color: 'var(--toast-color)',
                 },
-              },
-              error: {
-                iconTheme: {
-                  primary: '#ef4444',
-                  secondary: '#ffffff',
+                success: {
+                  iconTheme: {
+                    primary: '#10b981',
+                    secondary: '#ffffff',
+                  },
                 },
-              },
-            }}
-          />
-        </div>
-      </Router>
-    </Provider>
+                error: {
+                  iconTheme: {
+                    primary: '#ef4444',
+                    secondary: '#ffffff',
+                  },
+                },
+              }}
+            />
+          </div>
+        </Router>
+      </Provider>
+    </AuthProvider>
   );
 }
 
-export default App
+export default App;

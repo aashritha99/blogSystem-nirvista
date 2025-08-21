@@ -84,7 +84,14 @@ const RegisterPage = () => {
     }
 
     try {
-      const { confirmPassword, ...registerData } = formData;
+      // Map frontend fields to backend fields
+      const registerData = {
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        password: formData.password,
+        password_confirm: formData.confirmPassword,
+        role: 'Viewer',
+      };
       await dispatch(register(registerData)).unwrap();
       toast.success('Registration successful! Please log in.');
       navigate('/login');

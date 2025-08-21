@@ -1,18 +1,13 @@
+import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { AuthContext } from '../../context/AuthContext';
 
-const ProtectedRoute = ({ children, requiredRole = null }) => {
-  const { user, token } = useSelector((state) => state.auth);
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useContext(AuthContext);
   const location = useLocation();
 
-  // Check if user is authenticated
-  if (!token || !user) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
-  }
-
-  // Check if specific role is required
-  if (requiredRole && user.role !== requiredRole && user.role !== 'admin') {
-    return <Navigate to="/" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/register" state={{ from: location }} replace />;
   }
 
   return children;
